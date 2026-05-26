@@ -20,25 +20,36 @@ void createTask(string name)
     newTask.completed = false;
 
     tasks.push_back(newTask);
+
+    cout << "Task created!" << endl;
+    cout << endl;
 }
 
 void deleteTask(string name)
 {
+    system("cls");
     for (int i = 0; i < tasks.size(); i++)
     {
         if (tasks[i].name == name)
         {
             tasks.erase(tasks.begin() + i);
             cout << "Task removed!" << endl;
+            cout << endl;
+            cout << "Press enter to continue: ";
+            cout << endl;
             return;
         }
     }
     cout << "Task not found!" << endl;
     cout << endl;
+    cout << "Press enter to continue: ";
+    cout << endl;
+    cout << endl;
 }
 
 void listTasks()
 {
+    system("cls");
     for (int i = 0; i < tasks.size(); i++)
     {
         if (tasks[i].completed)
@@ -52,22 +63,31 @@ void listTasks()
         cout << tasks[i].name << endl;
     }
     cout << endl;
-    cout << "Press enter to continue";
+    cout << "Press enter to continue: ";
     cout << endl;
 }
 
 void completeTask(string name)
 {
+    system("cls");
     for (int i = 0; i < tasks.size(); i++)
     {
+        system("cls");
+
         if (tasks[i].name == name)
         {
             tasks[i].completed = true;
             cout << "Task completed!" << endl;
+            cout << endl;
+            cout << "Press enter to continue: ";
+            cout << endl;
             return;
         }
     }
     cout << "Task not found!" << endl;
+    cout << endl;
+    cout << "Press enter to continue: ";
+    cout << endl;
 }
 
 int main()
@@ -106,6 +126,8 @@ int main()
             cout << "Enter task name: ";
             getline(cin >> ws, name);
             deleteTask(name);
+            cin.ignore();
+            cin.get();
             break;
         }
         case 3:
@@ -121,7 +143,13 @@ int main()
             cout << "Enter task name: ";
             getline(cin >> ws, name);
             completeTask(name);
+            cin.ignore();
+            cin.get();
             break;
+        }
+        case 5:
+        {
+            return 0;
         }
         default:
         {
