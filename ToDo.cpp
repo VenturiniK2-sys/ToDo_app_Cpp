@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fstream>
+#include <sstream>
 using namespace std;
 
 // Struct to represent a Task
@@ -12,6 +14,47 @@ struct Task
 
 // Global vector to store tasks
 vector<Task> tasks;
+
+void loadTasks() //! this was made with AI , just because i want to use the todo but havent studied sstream yet
+{
+    ifstream file("tasks.txt");
+
+    string line;
+
+    while(getline(file, line))
+    {
+        string name;
+        string completedText;
+
+        int separator = line.find('|');
+
+        name = line.substr(0, separator);
+
+        completedText = line.substr(separator + 1);
+
+        Task task;
+
+        task.name = name;
+
+        task.completed = stoi(completedText);
+
+        tasks.push_back(task);
+    }
+
+    file.close();
+}
+
+void saveTask ()
+{
+    ofstream file("tasks.txt");
+
+    for ( int i = 0; i < tasks.size(); i++)
+    {
+        file << tasks[i].name << "|";
+        file << tasks[i].completed << endl;
+    }
+    file.close();
+}
 
 void createTask(string name)
 {
@@ -92,6 +135,7 @@ void completeTask(string name)
 
 int main()
 {
+    loadTasks();
     int choice; // variable to store user choice
 
     do
@@ -117,7 +161,10 @@ int main()
             cout << "Enter task name: ";
             getline(cin >> ws, name);
             createTask(name);
+
             system("cls");
+
+            saveTask();
             break;
         }
         case 2:
@@ -126,8 +173,9 @@ int main()
             cout << "Enter task name: ";
             getline(cin >> ws, name);
             deleteTask(name);
-            cin.ignore();
             cin.get();
+
+            saveTask();
             break;
         }
         case 3:
@@ -143,8 +191,9 @@ int main()
             cout << "Enter task name: ";
             getline(cin >> ws, name);
             completeTask(name);
-            cin.ignore();
             cin.get();
+
+            saveTask();
             break;
         }
         case 5:
