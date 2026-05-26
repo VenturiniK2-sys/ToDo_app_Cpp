@@ -52,6 +52,8 @@ void listTasks()
         cout << tasks[i].name << endl;
     }
     cout << endl;
+    cout << "Press enter to continue";
+    cout << endl;
 }
 
 void completeTask(string name)
@@ -75,14 +77,17 @@ int main()
     do
     {
         // Main menu
-        cout << "Create new task - 1" << endl;
-        cout << "Delete task - 2" << endl;
-        cout << "List tasks - 3" << endl;
-        cout << "Mark task as completed - 4" << endl;
-        cout << "Exit - 5" << endl;
+
+        cout << "[1] Create new task" << endl;
+        cout << "[2] Delete task" << endl;
+        cout << "[3] List tasks" << endl;
+        cout << "[4] Mark task as completed" << endl;
+        cout << "[5] Exit" << endl;
 
         cout << endl;
+        cout << "Choose a option: ";
         cin >> choice;
+        cout << endl;
 
         switch (choice)
         {
@@ -92,6 +97,7 @@ int main()
             cout << "Enter task name: ";
             getline(cin >> ws, name);
             createTask(name);
+            system("cls");
             break;
         }
         case 2:
@@ -105,6 +111,8 @@ int main()
         case 3:
         {
             listTasks();
+            cin.ignore();
+            cin.get();
             break;
         }
         case 4:
@@ -114,6 +122,11 @@ int main()
             getline(cin >> ws, name);
             completeTask(name);
             break;
+        }
+        default:
+        {
+            cout << "Insert a valid option" << endl;
+            cout << endl;
         }
         }
 
